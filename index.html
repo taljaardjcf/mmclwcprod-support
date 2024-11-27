@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+<H1>MMC Lightning Out Enquiry</H1>
+    <div id="lightningout"></div>
+
+    <script src="https://mmc.my.site.com/publicforms/lightning/lightning.out.js"></script>
+    <script>
+	const handleFlowStateChange = (event) => {
+		console.log('Here handle callback events for the submit action');
+		console.log(JSON.stringify(event));
+	};
+	
+	$Lightning.use(
+		"c:publicForms",
+		function () {
+			$Lightning.createComponent(
+				"c:lightningFlowContact",
+				{
+					flowName: "Web_Contact_Form",//do not change this
+					title: " ", //you can change this or to remove add a blank space
+					inputVariables : [
+						{
+						  name : "Type",
+						  type : "String",
+						  value : "Support"
+						}
+						]
+				},
+				"lightningout",//the div id where to inject this script/component
+				function (cmp) {
+					$A.eventService.addHandler({
+						event: "c:flowStateChangeEvent",
+						handler: handleFlowStateChange
+					});
+				}
+			);
+		},
+		"https://mmc.my.site.com/publicforms"
+	); 
+   </script>
+  </body>
+</html>
