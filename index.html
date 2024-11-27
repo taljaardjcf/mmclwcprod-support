@@ -11,8 +11,29 @@
     <script src="https://mmc.my.site.com/publicforms/lightning/lightning.out.js"></script>
     <script>
 	const handleFlowStateChange = (event) => {
-		console.log('Here handle callback events for the submit action');
-		console.log(JSON.stringify(event));
+	    const interviewStatus = event.gc.detail._params.interviewStatus;
+	    console.log('******* interviewStatus', interviewStatus);
+	 
+	    switch (interviewStatus) {
+	        case 'STARTED':
+	            console.log('Interview process has started.');
+	            // Add any logic specific to when the interview has started
+	            break;
+	 
+	        case 'FINISHED':
+	            console.log('Interview process has finished.');
+	            // Add any logic specific to when the interview has finished
+	            break;
+	 
+	        case 'ERROR':
+	            console.error('An error occurred during the interview process.');
+	            // Add any logic specific to when an error occurs
+	            break;
+	 
+	        default:
+	            console.warn('Unknown interview status:', interviewStatus);
+	            // Handle unexpected status values
+	    }
 	};
 	
 	$Lightning.use(
